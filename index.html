@@ -820,6 +820,7 @@
     errEl.classList.add('hidden');
     paymentReady = false;
 
+<<<<<<< HEAD
     console.log('🔍 mountPaymentElement called');
     console.log('🔍 Stripe instance:', stripe ? 'loaded' : 'NOT LOADED');
     console.log('🔍 Publishable key starts with:', STRIPE_PUBLISHABLE_KEY.slice(0, 12));
@@ -828,20 +829,31 @@
     if(!stripe){
       container.innerHTML = '<span style="color:var(--red); font-size:13px;">Stripe.js failed to load. Check your internet connection.</span>';
       console.error('❌ Stripe.js did not load');
+=======
+    if(!stripe){
+      container.innerHTML = '<span style="color:var(--red); font-size:13px;">Stripe.js failed to load. Check your internet connection.</span>';
+>>>>>>> eb9f737de406b3073af8fa31b9ef62ba376beae7
       return;
     }
     if(STRIPE_PUBLISHABLE_KEY.includes('REPLACE_WITH') || API_BASE_URL.includes('your-backend-url')){
       container.innerHTML = '<span style="color:var(--amber-soft); font-size:13px;">Add your Stripe publishable key and backend URL at the top of the script to activate this field.</span>';
+<<<<<<< HEAD
       console.error('❌ Keys not configured');
+=======
+>>>>>>> eb9f737de406b3073af8fa31b9ef62ba376beae7
       return;
     }
 
     container.innerHTML = '<span style="color:var(--paper-dim); font-size:13px;">Loading secure payment form…</span>';
 
     try{
+<<<<<<< HEAD
       console.log('🔍 Calling backend to create PaymentIntent...');
       const clientSecret = await createPaymentIntent();
       console.log('✅ Got client secret from backend');
+=======
+      const clientSecret = await createPaymentIntent();
+>>>>>>> eb9f737de406b3073af8fa31b9ef62ba376beae7
       elements = stripe.elements({
         clientSecret,
         appearance: {
@@ -860,9 +872,14 @@
       const paymentElement = elements.create('payment');
       paymentElement.mount('#payment-element');
       paymentReady = true;
+<<<<<<< HEAD
       console.log('✅ Stripe Payment Element mounted successfully');
     } catch(err){
       console.error('❌ Error mounting payment element:', err);
+=======
+    } catch(err){
+      console.error(err);
+>>>>>>> eb9f737de406b3073af8fa31b9ef62ba376beae7
       container.innerHTML = '';
       errEl.textContent = 'Unable to load the payment form. Please try again.';
       errEl.classList.remove('hidden');
