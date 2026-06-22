@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L&B Limousine Services — Atlanta Airport Transfers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0F14;
+    --ink-2:#121822;
+    --ink-3:#1A2330;
+    --amber:#D98E3F;
+    --amber-soft:#F0B868;
+    --slate:#2C4A5E;
+    --paper:#F4EFE3;
+    --paper-dim:#C9C2B2;
+    --green:#6FA287;
+    --red:#C97A6B;
+    --line: rgba(244,239,227,0.12);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Big Shoulders Display', sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.01em;}
+
+  /* ===== NAV ===== */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px clamp(20px,5vw,64px);
+    background:var(--ink);
+    color:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .wordmark{
+    display:flex; flex-direction:column; line-height:1;
+  }
+  .wordmark .name{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:800; font-size:22px; letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .wordmark .name span{color:var(--amber);}
+  .wordmark .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--paper-dim); margin-top:3px;
+  }
+  .nav-right{display:flex; align-items:center; gap:28px; font-size:14px;}
+  .nav-right a{text-decoration:none; color:var(--paper-dim); transition:color .15s;}
+  .nav-right a:hover{color:var(--amber-soft);}
+  .nav-phone{
+    color:var(--paper) !important;
+    border:1px solid var(--line);
+    padding:9px 16px; border-radius:var(--radius);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .nav-phone:hover{border-color:var(--amber);}
+
+  /* ===== HERO ===== */
+  .hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:0 clamp(20px,5vw,64px) 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .ticker-wrap{
+    overflow:hidden;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin-bottom:56px;
+  }
+  .ticker{
+    display:flex; gap:48px; white-space:nowrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; color:var(--amber-soft);
+    animation: ticker-scroll 28s linear infinite;
+    width:max-content;
+  }
+  .ticker span{opacity:0.85;}
+  .ticker .dim{color:var(--paper-dim);}
+  @keyframes ticker-scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:64px;
+    align-items:start;
+  }
+  .hero-copy .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--amber); margin-bottom:18px; display:block;
+  }
+  .hero-copy h1{
+    font-size:clamp(36px,4.6vw,58px);
+    line-height:1.02;
+    margin:0 0 22px;
+    max-width:14ch;
+  }
+  .hero-copy p.lede{
+    font-size:18px; color:var(--paper-dim); max-width:46ch; margin:0 0 28px;
+  }
+  .flight-path{
+    margin-top:36px;
+    width:100%; max-width:480px;
+  }
+  .flight-path svg{width:100%; height:auto; display:block;}
+  .fp-dash{
+    stroke-dasharray: 6 8;
+    animation: fp-move 1.6s linear infinite;
+  }
+  @keyframes fp-move{ to{ stroke-dashoffset:-28; } }
+  .fp-plane{
+    animation: fp-fly 4.5s ease-in-out infinite;
+  }
+  @keyframes fp-fly{
+    0%{ transform:translateX(0); }
+    50%{ transform:translateX(230px); }
+    100%{ transform:translateX(0); }
+  }
+  .trust-line{
+    margin-top:30px; display:flex; gap:22px; flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    color:var(--paper-dim); letter-spacing:0.04em;
+  }
+  .trust-line strong{color:var(--paper);}
+
+  /* ===== BOOKING CARD ===== */
+  .book-card{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px;
+    position:sticky; top:24px;
+  }
+  .book-card .demo-banner{
+    background:rgba(217,142,63,0.12);
+    border:1px solid rgba(217,142,63,0.35);
+    color:var(--amber-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:9px 12px;
+    border-radius:var(--radius);
+    margin-bottom:20px;
+    line-height:1.4;
+  }
+  .step-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--amber); margin-bottom:6px;
+  }
+  .step-title{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700; font-size:24px; text-transform:uppercase;
+    margin:0 0 18px; letter-spacing:0.01em;
+  }
+  .pill-toggle{
+    display:flex; border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; margin-bottom:18px;
+  }
+  .pill-toggle button{
+    flex:1; padding:11px 10px; background:transparent; color:var(--paper-dim);
+    border:none; font-family:'IBM Plex Mono', monospace; font-size:12px;
+    letter-spacing:0.04em; cursor:pointer; transition:all .15s;
+  }
+  .pill-toggle button.active{background:var(--amber); color:var(--ink); font-weight:600;}
+
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block; font-size:11px; font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--paper-dim);
+    margin-bottom:7px;
+  }
+  .field input, .field select{
+    width:100%; padding:11px 12px; background:var(--ink-3);
+    border:1px solid var(--line); border-radius:var(--radius);
+    color:var(--paper); font-family:'IBM Plex Sans', sans-serif; font-size:14px;
+  }
+  .field input::placeholder{color:#5a6472;}
+  .field input:focus, .field select:focus, .pill-toggle button:focus-visible, .vehicle-card:focus-visible, .btn:focus-visible{
+    outline:2px solid var(--amber-soft); outline-offset:2px;
+  }
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+
+  .vehicle-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;}
+  .vehicle-card{
+    border:1px solid var(--line); border-radius:var(--radius); padding:14px 12px;
+    cursor:pointer; background:var(--ink-3); transition:all .15s;
+  }
+  .vehicle-card.active{border-color:var(--amber); background:rgba(217,142,63,0.08);}
+  .vehicle-card .v-name{font-size:13px; font-weight:600; margin-bottom:3px;}
+  .vehicle-card .v-cap{font-size:11px; color:var(--paper-dim); margin-bottom:8px;}
+  .vehicle-card .v-price{font-family:'IBM Plex Mono', monospace; font-size:18px; color:var(--amber-soft);}
+  .vehicle-card .v-price small{font-size:11px; color:var(--paper-dim); font-weight:400;}
+
+  .btn{
+    width:100%; padding:14px 16px; background:var(--amber); color:var(--ink);
+    border:none; border-radius:var(--radius); font-family:'IBM Plex Mono', monospace;
+    font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600;
+    cursor:pointer; transition:background .15s;
+  }
+  .btn:hover{background:var(--amber-soft);}
+  .btn.ghost{
+    background:transparent; border:1px solid var(--line); color:var(--paper-dim);
+    margin-top:10px;
+  }
+  .btn.ghost:hover{color:var(--paper); border-color:var(--paper-dim);}
+
+  .summary-box{
+    border:1px solid var(--line); border-radius:var(--radius); padding:16px;
+    margin-bottom:20px; background:var(--ink-3);
+  }
+  .summary-row{display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; color:var(--paper-dim);}
+  .summary-row.total{
+    border-top:1px solid var(--line); margin-top:10px; padding-top:10px;
+    font-size:15px; color:var(--paper); font-weight:600;
+  }
+  .summary-row .mono{color:var(--paper);}
+
+  .card-art{
+    background:linear-gradient(135deg, var(--slate), var(--ink-3));
+    border-radius:var(--radius); padding:16px; margin-bottom:18px;
+    border:1px solid var(--line);
+  }
+  .card-art .cn{font-family:'IBM Plex Mono', monospace; font-size:16px; letter-spacing:0.08em; margin-top:18px;}
+  .card-art .meta{display:flex; justify-content:space-between; margin-top:14px; font-size:10px; color:var(--paper-dim); font-family:'IBM Plex Mono', monospace; text-transform:uppercase;}
+
+  .lock-note{
+    display:flex; align-items:center; gap:8px; font-size:11px; color:var(--paper-dim);
+    margin-top:14px; font-family:'IBM Plex Mono', monospace;
+  }
+  .estimate-note{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; line-height:1.6;
+    color:var(--amber-soft); background:rgba(217,142,63,0.08);
+    border:1px solid rgba(217,142,63,0.3); border-radius:var(--radius);
+    padding:10px 12px; margin-bottom:18px;
+  }
+
+  .confirm-wrap{text-align:center; padding:10px 0 4px;}
+  .check{
+    width:54px; height:54px; border-radius:50%; background:rgba(111,162,135,0.15);
+    border:1px solid var(--green); display:flex; align-items:center; justify-content:center;
+    margin:0 auto 18px;
+  }
+  .ref{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--amber-soft);
+    background:var(--ink-3); border:1px solid var(--line); border-radius:var(--radius);
+    padding:10px; margin:16px 0; letter-spacing:0.06em;
+  }
+  .error-text{color:var(--red); font-size:11px; margin-top:5px; font-family:'IBM Plex Mono', monospace;}
+  .hidden{display:none !important;}
+
+  /* ===== TRUST STRIP ===== */
+  .trust-strip{
+    background:var(--paper); padding:34px clamp(20px,5vw,64px);
+    display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+    border-bottom:1px solid rgba(11,15,20,0.1);
+  }
+  .trust-item{display:flex; gap:12px; align-items:flex-start;}
+  .trust-item .dot{width:8px; height:8px; border-radius:50%; background:var(--amber); margin-top:7px; flex-shrink:0;}
+  .trust-item .t-title{font-weight:600; font-size:14px; margin-bottom:2px;}
+  .trust-item .t-sub{font-size:12.5px; color:#5d564a;}
+
+  /* ===== SECTIONS ===== */
+  section.block{padding:84px clamp(20px,5vw,64px);}
+  .section-head{margin-bottom:48px; max-width:640px;}
+  .section-head .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--slate); margin-bottom:12px; display:block;
+  }
+  .section-head h2{font-size:clamp(28px,3.2vw,40px); margin:0 0 10px;}
+  .section-head p{color:#5d564a; font-size:16px; margin:0;}
+
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:32px;}
+  .step{border-top:2px solid var(--ink); padding-top:18px;}
+  .step .num{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--amber); margin-bottom:10px;}
+  .step h3{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 8px;}
+  .step p{font-size:14px; color:#5d564a; margin:0;}
+
+  .pricing-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px;}
+  .price-card{
+    border:1px solid rgba(11,15,20,0.14); border-radius:var(--radius); padding:22px 18px;
+    background:#fff;
+  }
+  .price-card .zone{font-weight:600; font-size:15px; margin-bottom:14px; min-height:38px;}
+  .price-row{display:flex; justify-content:space-between; font-size:13px; padding:8px 0; border-top:1px solid rgba(11,15,20,0.08);}
+  .price-row .amt{font-family:'IBM Plex Mono', monospace; font-weight:600;}
+
+  .fleet-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  .fleet-card{
+    background:var(--ink); color:var(--paper); border-radius:var(--radius);
+    padding:28px; position:relative; overflow:hidden;
+  }
+  .fleet-card h3{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; font-size:26px; margin:0 0 6px;}
+  .fleet-card .price{font-family:'IBM Plex Mono', monospace; color:var(--amber-soft); font-size:14px; margin-bottom:16px;}
+  .fleet-card ul{margin:0; padding:0; list-style:none; font-size:13.5px; color:var(--paper-dim);}
+  .fleet-card li{padding:6px 0; border-top:1px solid var(--line);}
+
+  .cta-band{
+    background:var(--slate); color:var(--paper); padding:64px clamp(20px,5vw,64px);
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+  }
+  .cta-band h2{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; font-size:clamp(24px,3vw,34px); margin:0; max-width:18ch;}
+  .cta-band p{color:var(--paper-dim); margin:8px 0 0; max-width:42ch;}
+  .cta-band .btn{width:auto; padding:14px 28px;}
+
+  footer{
+    background:var(--ink); color:var(--paper-dim); padding:44px clamp(20px,5vw,64px) 30px;
+    font-size:12.5px;
+  }
+  .footer-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:18px;}
+  footer .legal{max-width:560px; line-height:1.6;}
+
+  @media (max-width: 880px){
+    .hero-grid{grid-template-columns:1fr;}
+    .trust-strip{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr;}
+    .fleet-grid{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .book-card{position:static;}
+    .nav-right{gap:14px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ticker, .fp-dash, .fp-plane{animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wordmark">
+    <div class="name">L&amp;B <span>Limousine Services</span></div>
+    <div class="tag">Atlanta · Luxury Limousine & Chauffeured Travel</div>
+  </div>
+  <div class="nav-right">
+    <a href="#pricing">Pricing</a>
+    <a href="#fleet">Fleet</a>
+    <a href="#corporate">Corporate Accounts</a>
+    <a class="nav-phone" href="tel:16788918144">(678) 891-8144</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <span><strong>ATL → MIDTOWN</strong> <span class="dim">FLAT $60</span> <span class="dim">·</span> PUNCTUAL ARRIVAL</span>
+      <span><strong>ATL → BUCKHEAD</strong> <span class="dim">FLAT $70</span> <span class="dim">·</span> FLIGHT MONITORED</span>
+      <span><strong>ATL → SANDY SPRINGS</strong> <span class="dim">FLAT $85</span> <span class="dim">·</span> WHITE GLOVE SERVICE</span>
+      <span><strong>ATL → ALPHARETTA</strong> <span class="dim">FLAT $100</span> <span class="dim">·</span> RESERVED FARE, FIXED</span>
+      <span><strong>ANYWHERE IN METRO ATLANTA</strong> <span class="dim">CUSTOM ADDRESS</span> <span class="dim">·</span> QUOTED FARE</span>
+      <span><strong>ATL → MIDTOWN</strong> <span class="dim">FLAT $60</span> <span class="dim">·</span> PUNCTUAL ARRIVAL</span>
+      <span><strong>ATL → BUCKHEAD</strong> <span class="dim">FLAT $70</span> <span class="dim">·</span> FLIGHT MONITORED</span>
+      <span><strong>ATL → SANDY SPRINGS</strong> <span class="dim">FLAT $85</span> <span class="dim">·</span> WHITE GLOVE SERVICE</span>
+      <span><strong>ATL → ALPHARETTA</strong> <span class="dim">FLAT $100</span> <span class="dim">·</span> RESERVED FARE, FIXED</span>
+      <span><strong>ANYWHERE IN METRO ATLANTA</strong> <span class="dim">CUSTOM ADDRESS</span> <span class="dim">·</span> QUOTED FARE</span>
+    </div>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Licensed Luxury Limousine Carrier · Hartsfield-Jackson</span>
+      <h1 class="display">Arrive exactly as you intend to be received.</h1>
+      <p class="lede">Chauffeured sedans and luxury SUVs to and from Hartsfield-Jackson, serving every corner of metro Atlanta at a fixed fare. Your chauffeur is already tracking your flight. No app, no surge, no compromise on arrival.</p>
+
+      <div class="flight-path">
+        <svg viewBox="0 0 480 90" fill="none">
+          <line x1="20" y1="55" x2="430" y2="55" stroke="#2C4A5E" stroke-width="2"/>
+          <line class="fp-dash" x1="20" y1="55" x2="430" y2="55" stroke="#D98E3F" stroke-width="2"/>
+          <g transform="translate(10,38)">
+            <rect x="0" y="0" width="34" height="34" rx="4" fill="#1A2330" stroke="#2C4A5E"/>
+            <text x="17" y="22" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#F0B868">ATL</text>
+          </g>
+          <g transform="translate(410,38)">
+            <rect x="0" y="0" width="34" height="34" rx="4" fill="#1A2330" stroke="#2C4A5E"/>
+            <text x="17" y="22" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#F0B868">ATX</text>
+          </g>
+          <g class="fp-plane" transform="translate(40,46)">
+            <circle r="5" fill="#F4EFE3"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="trust-line">
+        <span><strong>GA DPS</strong> Class B Carrier Certified</span>
+        <span><strong>ATL</strong> Ground Transportation Permit</span>
+        <span><strong>$1M</strong> Commercial Liability Insured</span>
+        <span><strong>Professional</strong> Chauffeurs, Not Drivers</span>
+      </div>
+    </div>
+
+    <div class="book-card" id="bookCard">
+
+      <!-- STEP 1: TRIP DETAILS -->
+      <div id="step1">
+        <div class="demo-banner">This form is wired for live Stripe payments — add your publishable key and backend URL near the top of the page's script to activate it.</div>
+        <div class="step-label">Step 1 of 3</div>
+        <div class="step-title">Reserve your chauffeur</div>
+
+        <div class="pill-toggle">
+          <button type="button" class="active" id="dirToAirport" onclick="setDirection('to')">To the Airport</button>
+          <button type="button" id="dirFromAirport" onclick="setDirection('from')">From the Airport</button>
+        </div>
+
+        <div class="field">
+          <label for="zone">Pickup / Drop-off Zone</label>
+          <select id="zone" onchange="updatePrices(); toggleOtherAddress(); populateSummary();">
+            <option value="collegepark">College Park / East Point</option>
+            <option value="midtown">Midtown / Downtown</option>
+            <option value="buckhead">Buckhead</option>
+            <option value="decatur">Decatur / Stone Mountain</option>
+            <option value="sandy">Sandy Springs / Dunwoody</option>
+            <option value="marietta">Marietta / Smyrna / Cobb County</option>
+            <option value="alpharetta">Alpharetta / Johns Creek</option>
+            <option value="douglasville">Douglasville / West Metro</option>
+            <option value="gwinnett">Lawrenceville / Gwinnett County</option>
+            <option value="other">Other — Metro Atlanta address</option>
+          </select>
+        </div>
+
+        <div class="field hidden" id="otherAddressWrap">
+          <label for="otherAddress">Enter Pickup / Drop-off Address</label>
+          <input type="text" id="otherAddress" placeholder="123 Main St, City, GA" oninput="populateSummary()">
+        </div>
+
+
+        <div class="field-row">
+          <div class="field">
+            <label for="date">Date</label>
+            <input type="date" id="date">
+          </div>
+          <div class="field">
+            <label for="time">Pickup Time</label>
+            <input type="time" id="time">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="flight">Flight Number <span style="text-transform:none; opacity:0.7;">(optional)</span></label>
+          <input type="text" id="flight" placeholder="e.g. DL1432">
+        </div>
+
+        <div class="field">
+          <label for="passengers">Passengers</label>
+          <select id="passengers">
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+          </select>
+        </div>
+
+        <div class="step-label" style="margin-top:18px;">Vehicle</div>
+        <div class="vehicle-grid">
+          <div class="vehicle-card active" id="vehSedan" tabindex="0" onclick="setVehicle('sedan')" onkeypress="if(event.key==='Enter')setVehicle('sedan')">
+            <div class="v-name">Executive Sedan</div>
+            <div class="v-cap">Up to 3 passengers · 3 bags</div>
+            <div class="v-price" id="sedanPrice">$60 <small>flat</small></div>
+          </div>
+          <div class="vehicle-card" id="vehSuv" tabindex="0" onclick="setVehicle('suv')" onkeypress="if(event.key==='Enter')setVehicle('suv')">
+            <div class="v-name">Luxury SUV</div>
+            <div class="v-cap">Up to 6 passengers · 6 bags</div>
+            <div class="v-price" id="suvPrice">$80 <small>flat</small></div>
+          </div>
+        </div>
+
+        <button class="btn" onclick="goToStep(2)">View Your Fare →</button>
+      </div>
+
+      <!-- STEP 2: CONFIRM & PAY -->
+      <div id="step2" class="hidden">
+        <div class="step-label">Step 2 of 3</div>
+        <div class="step-title">Confirm &amp; pay</div>
+
+        <div class="summary-box">
+          <div class="summary-row"><span>Route</span><span class="mono" id="sumRoute">ATL → Midtown</span></div>
+          <div class="summary-row"><span>Vehicle</span><span class="mono" id="sumVehicle">Executive Sedan</span></div>
+          <div class="summary-row"><span>Pickup</span><span class="mono" id="sumWhen">—</span></div>
+          <div class="summary-row"><span>Base fare</span><span class="mono" id="sumBase">$60.00</span></div>
+          <div class="summary-row"><span>Meet &amp; greet</span><span class="mono">$12.00</span></div>
+          <div class="summary-row total"><span>Total</span><span class="mono" id="sumTotal">$72.00</span></div>
+        </div>
+
+        <div class="estimate-note hidden" id="estimateNote">Estimated fare for custom metro Atlanta addresses — we'll confirm your exact rate by text before your card is charged.</div>
+
+        <div class="field">
+          <label for="fullName">Name on Card</label>
+          <input type="text" id="fullName" placeholder="Jakita Thomas">
+        </div>
+        <div class="field">
+          <label for="email">Receipt Email</label>
+          <input type="email" id="email" placeholder="you@email.com">
+        </div>
+
+        <div class="field">
+          <label>Card Details</label>
+          <div id="payment-element" style="padding:14px; background:var(--ink-3); border:1px solid var(--line); border-radius:var(--radius); min-height:42px;">
+            <span style="color:var(--paper-dim); font-size:13px;">Loading secure payment form…</span>
+          </div>
+          <div class="error-text hidden" id="paymentErr"></div>
+        </div>
+
+        <button class="btn" id="payBtn" onclick="processPayment()">Pay <span id="payAmt">$72.00</span> &amp; Confirm Reservation</button>
+        <button class="btn ghost" onclick="goToStep(1)">← Back to trip details</button>
+
+        <div class="lock-note">🔒 Payments are processed securely by Stripe. Card details never touch our servers.</div>
+      </div>
+
+      <!-- STEP 3: CONFIRMATION -->
+      <div id="step3" class="hidden">
+        <div class="confirm-wrap">
+          <div class="check">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#6FA287" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="step-title" style="font-size:22px;">Reservation Confirmed</div>
+          <p style="color:var(--paper-dim); font-size:14px; margin-bottom:0;">We'll text you the moment your chauffeur is en route, and adjust automatically if your flight shifts.</p>
+          <div class="ref" id="bookingRef">REF: LBP-000000</div>
+          <div class="summary-box" style="text-align:left;">
+            <div class="summary-row"><span>Route</span><span class="mono" id="confRoute">—</span></div>
+            <div class="summary-row"><span>Pickup</span><span class="mono" id="confWhen">—</span></div>
+            <div class="summary-row total"><span>Charged</span><span class="mono" id="confTotal">—</span></div>
+          </div>
+          <button class="btn" onclick="resetBooking()">Reserve Another Trip</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<div class="trust-strip">
+  <div class="trust-item"><span class="dot"></span><div><div class="t-title">Flight Tracked</div><div class="t-sub">Pickup adjusts automatically for delays</div></div></div>
+  <div class="trust-item"><span class="dot"></span><div><div class="t-title">Meet & Greet Included</div><div class="t-sub">Your chauffeur waits inside, never a curbside scramble</div></div></div>
+  <div class="trust-item"><span class="dot"></span><div><div class="t-title">Flat Rate, No Surge</div><div class="t-sub">Price is locked the moment you book</div></div></div>
+  <div class="trust-item"><span class="dot"></span><div><div class="t-title">Licensed & Insured</div><div class="t-sub">GA DPS certified, $1M liability coverage</div></div></div>
+</div>
+
+<section class="block" id="how">
+  <div class="section-head">
+    <span class="eyebrow">The Experience</span>
+    <h2 class="display">Reserved in minutes. Delivered with polish.</h2>
+    <p>Reserve from any browser, then let your chauffeur handle everything else.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="num mono">01</div>
+      <h3>Reserve your fare</h3>
+      <p>Select your zone and vehicle. The fare you reserve is the fare you're charged — no dynamic surcharges, ever.</p>
+    </div>
+    <div class="step">
+      <div class="num mono">02</div>
+      <h3>Your chauffeur tracks your flight</h3>
+      <p>Share your flight number and your chauffeur monitors it in real time, timing your pickup to the minute — early or delayed.</p>
+    </div>
+    <div class="step">
+      <div class="num mono">03</div>
+      <h3>Be received at baggage claim</h3>
+      <p>Your chauffeur waits with a name placard, ready to assist with luggage the moment you arrive. No searching the pickup lot.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="pricing" style="background:#EFE9DA;">
+  <div class="section-head">
+    <span class="eyebrow">Flat-Rate Zones · Metro Atlanta</span>
+    <h2 class="display">One fare. Reserved in advance.</h2>
+    <p>Every fare is fixed at the time of reservation, in keeping with Georgia's limousine carrier regulations. We cover metro Atlanta end to end — if your address falls outside these zones, we'll quote it directly.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="zone">College Park / East Point</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$45</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$60</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Midtown / Downtown</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$60</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$80</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Buckhead</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$70</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$90</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Decatur / Stone Mountain</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$75</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$95</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Sandy Springs / Dunwoody</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$85</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$105</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Marietta / Smyrna / Cobb</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$90</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$110</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Alpharetta / Johns Creek</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$100</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$120</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Douglasville / West Metro</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$100</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$120</span></div>
+    </div>
+    <div class="price-card">
+      <div class="zone">Lawrenceville / Gwinnett</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">$110</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">$130</span></div>
+    </div>
+    <div class="price-card" style="border-color:rgba(217,142,63,0.5);">
+      <div class="zone">Other Metro Atlanta Address</div>
+      <div class="price-row"><span>Executive Sedan</span><span class="amt">from $110*</span></div>
+      <div class="price-row"><span>Luxury SUV</span><span class="amt">from $140*</span></div>
+    </div>
+  </div>
+  <p style="font-size:12px; color:#7a7361; margin-top:18px;">*Estimated starting fare for addresses outside our standard zones. Enter your address at booking and we'll confirm the exact rate before your card is charged.</p>
+</section>
+
+<section class="block" id="fleet">
+  <div class="section-head">
+    <span class="eyebrow">The Fleet</span>
+    <h2 class="display">Two vehicles. One standard of excellence.</h2>
+    <p>Every vehicle in our fleet is company-owned, meticulously maintained, and insured in our name, as required for our Hartsfield-Jackson Ground Transportation Permit.</p>
+  </div>
+  <div class="fleet-grid">
+    <div class="fleet-card">
+      <h3>Executive Sedan</h3>
+      <div class="price mono">From $60 flat</div>
+      <ul>
+        <li>Up to 3 passengers</li>
+        <li>3 standard bags + 1 carry-on</li>
+        <li>Chilled water, premium amenities, complimentary Wi-Fi</li>
+        <li>Reserved for the discerning solo or paired traveler</li>
+      </ul>
+    </div>
+    <div class="fleet-card">
+      <h3>Luxury SUV</h3>
+      <div class="price mono">From $80 flat</div>
+      <ul>
+        <li>Up to 6 passengers</li>
+        <li>6 standard bags, ski/golf accommodations on request</li>
+        <li>Chilled water, premium amenities, complimentary Wi-Fi</li>
+        <li>The preferred choice for families and small parties traveling together</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band" id="corporate">
+  <div>
+    <h2>Need a standing arrangement for your firm?</h2>
+    <p>Net-30 billing, priority dispatch, and a dedicated account line — reserved for law firms, brokerages, and executives who travel often.</p>
+  </div>
+  <button class="btn" onclick="alert('In production, this opens a corporate accounts inquiry form.')">Set Up a Corporate Account</button>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="wordmark">
+      <div class="name" style="color:var(--paper);">L&amp;B <span>Limousine Services</span></div>
+      <div class="tag">Atlanta, Georgia</div>
+    </div>
+    <div class="legal">
+      L&B Limousine Services LLC is a licensed Georgia Class B Limousine Carrier and holds an active Hartsfield-Jackson Atlanta International Airport Ground Transportation Permit. Rates shown are flat-rate fares as defined under Georgia limousine carrier regulations and exclude gratuity.
+    </div>
+  </div>
+  <div>© 2026 L&B Limousine Services LLC · (678) 891-8144 · hello@lnblimousineservices.com</div>
+</footer>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  // ============================================================
+  // STRIPE CONFIGURATION — fill these in to go live
+  // ============================================================
+  // Publishable key from your Stripe Dashboard (Developers > API keys).
+  // Safe to expose in client-side code — it cannot move money on its own.
+  const STRIPE_PUBLISHABLE_KEY = 'pk_live_51Tjf0kHRg12SEMJ1z3Erp4ePbiYxUqnJk86sVCddyA76eHUHUXOdC9Mhd0Vaui2SUEhfuDu2ByAyoRyls2WegoVm00KZl1Pefz';
+
+  // Base URL of the backend that creates PaymentIntents (see server.js).
+  // Replace this with your real Render/Railway URL once the backend is deployed.
+  // Example: 'https://lnb-limousine-backend.onrender.com'
+  const API_BASE_URL = 'https://lnb-limousine-stripe-backend.onrender.com';
+  // ============================================================
+
+  const PRICES = {
+    collegepark:  { label: "College Park / East Point",         sedan: 45,  suv: 60 },
+    midtown:      { label: "Midtown / Downtown",                sedan: 60,  suv: 80 },
+    buckhead:     { label: "Buckhead",                          sedan: 70,  suv: 90 },
+    decatur:      { label: "Decatur / Stone Mountain",          sedan: 75,  suv: 95 },
+    sandy:        { label: "Sandy Springs / Dunwoody",          sedan: 85,  suv: 105 },
+    marietta:     { label: "Marietta / Smyrna / Cobb County",   sedan: 90,  suv: 110 },
+    alpharetta:   { label: "Alpharetta / Johns Creek",          sedan: 100, suv: 120 },
+    douglasville: { label: "Douglasville / West Metro",         sedan: 100, suv: 120 },
+    gwinnett:     { label: "Lawrenceville / Gwinnett County",   sedan: 110, suv: 130 },
+    other:        { label: "Metro Atlanta (Custom Address)",    sedan: 110, suv: 140, estimate: true }
+  };
+  const MEET_GREET = 12;
+  let state = { direction: "to", vehicle: "sedan" };
+
+  function setDirection(dir){
+    state.direction = dir;
+    document.getElementById('dirToAirport').classList.toggle('active', dir === 'to');
+    document.getElementById('dirFromAirport').classList.toggle('active', dir === 'from');
+  }
+
+  function setVehicle(v){
+    state.vehicle = v;
+    document.getElementById('vehSedan').classList.toggle('active', v === 'sedan');
+    document.getElementById('vehSuv').classList.toggle('active', v === 'suv');
+  }
+
+  function updatePrices(){
+    const zone = PRICES[document.getElementById('zone').value];
+    const suffix = zone.estimate ? 'est.' : 'flat';
+    document.getElementById('sedanPrice').innerHTML = '$' + zone.sedan + ' <small>' + suffix + '</small>';
+    document.getElementById('suvPrice').innerHTML = '$' + zone.suv + ' <small>' + suffix + '</small>';
+  }
+
+  function toggleOtherAddress(){
+    const isOther = document.getElementById('zone').value === 'other';
+    document.getElementById('otherAddressWrap').classList.toggle('hidden', !isOther);
+  }
+
+  function currentTotal(){
+    const zone = PRICES[document.getElementById('zone').value];
+    const base = state.vehicle === 'sedan' ? zone.sedan : zone.suv;
+    return { base, total: base + MEET_GREET, zone };
+  }
+
+  // Stripe instance, initialized once the library has loaded
+  let stripe = (typeof Stripe !== 'undefined') ? Stripe(STRIPE_PUBLISHABLE_KEY) : null;
+  let elements;         // current Stripe Elements group
+  let paymentReady = false;
+
+  function goToStep(n){
+    document.getElementById('step1').classList.toggle('hidden', n !== 1);
+    document.getElementById('step2').classList.toggle('hidden', n !== 2);
+    document.getElementById('step3').classList.toggle('hidden', n !== 3);
+    if(n === 2){
+      populateSummary();
+      mountPaymentElement();
+    }
+    document.getElementById('bookCard').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function populateSummary(){
+    const { base, total, zone } = currentTotal();
+    const zoneKey = document.getElementById('zone').value;
+    let zoneLabel = zone.label;
+    if(zoneKey === 'other'){
+      const addr = document.getElementById('otherAddress').value.trim();
+      zoneLabel = addr || 'Metro Atlanta (address pending)';
+    }
+    const dirLabel = state.direction === 'to' ? ('ATL → ' + zoneLabel) : (zoneLabel + ' → ATL');
+    document.getElementById('sumRoute').textContent = dirLabel;
+    document.getElementById('sumVehicle').textContent = state.vehicle === 'sedan' ? 'Executive Sedan' : 'Luxury SUV';
+    const date = document.getElementById('date').value || '—';
+    const time = document.getElementById('time').value || '—';
+    document.getElementById('sumWhen').textContent = date + ' · ' + time;
+    document.getElementById('sumBase').textContent = '$' + base.toFixed(2);
+    document.getElementById('sumTotal').textContent = '$' + total.toFixed(2);
+    document.getElementById('payAmt').textContent = '$' + total.toFixed(2);
+    document.getElementById('estimateNote').classList.toggle('hidden', !zone.estimate);
+  }
+
+  // Calls your backend to create a Stripe PaymentIntent for the current fare.
+  // The backend holds the secret key; this page only ever sees a client secret.
+  async function createPaymentIntent(){
+    const { total, zone } = currentTotal();
+    const amountCents = Math.round(total * 100);
+
+    const res = await fetch(API_BASE_URL + '/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount: amountCents,
+        currency: 'usd',
+        metadata: {
+          zone: zone.label,
+          customAddress: document.getElementById('zone').value === 'other' ? document.getElementById('otherAddress').value : '',
+          vehicle: state.vehicle,
+          direction: state.direction,
+          date: document.getElementById('date').value,
+          time: document.getElementById('time').value,
+          flight: document.getElementById('flight').value
+        }
+      })
+    });
+
+    if(!res.ok){
+      throw new Error('Could not start payment session.');
+    }
+    const data = await res.json();
+    return data.clientSecret;
+  }
+
+  // Fetches a fresh PaymentIntent and mounts the Stripe Payment Element
+  // into the #payment-element container for the current fare amount.
+  async function mountPaymentElement(){
+    const container = document.getElementById('payment-element');
+    const errEl = document.getElementById('paymentErr');
+    errEl.classList.add('hidden');
+    paymentReady = false;
+
+    if(!stripe){
+      container.innerHTML = '<span style="color:var(--red); font-size:13px;">Stripe.js failed to load. Check your internet connection.</span>';
+      return;
+    }
+    if(STRIPE_PUBLISHABLE_KEY.includes('REPLACE_WITH') || API_BASE_URL.includes('your-backend-url')){
+      container.innerHTML = '<span style="color:var(--amber-soft); font-size:13px;">Add your Stripe publishable key and backend URL at the top of the script to activate this field.</span>';
+      return;
+    }
+
+    container.innerHTML = '<span style="color:var(--paper-dim); font-size:13px;">Loading secure payment form…</span>';
+
+    try{
+      const clientSecret = await createPaymentIntent();
+      elements = stripe.elements({
+        clientSecret,
+        appearance: {
+          theme: 'night',
+          variables: {
+            colorPrimary: '#D98E3F',
+            colorBackground: '#1A2330',
+            colorText: '#F4EFE3',
+            colorDanger: '#C97A6B',
+            fontFamily: 'IBM Plex Sans, sans-serif',
+            borderRadius: '4px'
+          }
+        }
+      });
+      container.innerHTML = '';
+      const paymentElement = elements.create('payment');
+      paymentElement.mount('#payment-element');
+      paymentReady = true;
+    } catch(err){
+      console.error(err);
+      container.innerHTML = '';
+      errEl.textContent = 'Unable to load the payment form. Please try again.';
+      errEl.classList.remove('hidden');
+    }
+  }
+
+  async function processPayment(){
+    const errEl = document.getElementById('paymentErr');
+    errEl.classList.add('hidden');
+
+    if(!paymentReady || !stripe || !elements){
+      errEl.textContent = 'Payment form is not ready yet. Add your Stripe keys to enable live payments.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    const btn = document.getElementById('payBtn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Processing…';
+    btn.disabled = true;
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.href,
+        payment_method_data: {
+          billing_details: {
+            name: document.getElementById('fullName').value || undefined,
+            email: document.getElementById('email').value || undefined
+          }
+        }
+      },
+      redirect: 'if_required'
+    });
+
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+
+    if(error){
+      errEl.textContent = error.message || 'Your card could not be charged. Please try again.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    if(paymentIntent && paymentIntent.status === 'succeeded'){
+      const { total, zone } = currentTotal();
+      const dirLabel = state.direction === 'to' ? ('ATL → ' + zone.label) : (zone.label + ' → ATL');
+      document.getElementById('bookingRef').textContent = 'REF: LBP-' + paymentIntent.id.slice(-8).toUpperCase();
+      document.getElementById('confRoute').textContent = dirLabel;
+      document.getElementById('confWhen').textContent = document.getElementById('sumWhen').textContent;
+      document.getElementById('confTotal').textContent = '$' + total.toFixed(2);
+      goToStep(3);
+    }
+  }
+
+  function resetBooking(){
+    document.getElementById('fullName').value = '';
+    document.getElementById('email').value = '';
+    goToStep(1);
+  }
+
+  updatePrices();
+  toggleOtherAddress();
+</script>
+
+</body>
+</html>
